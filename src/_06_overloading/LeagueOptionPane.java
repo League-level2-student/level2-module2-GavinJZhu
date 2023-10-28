@@ -3,10 +3,7 @@ package _06_overloading;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /*
  * Overloading is when we have multiple methods with the SAME name, but DIFFERENT parameters.
@@ -16,14 +13,20 @@ import javax.swing.JPanel;
  * GOAL: Create your own custom pop-up messages
  */
 public class LeagueOptionPane {
-	
-	public static void showMessageDialog(String message) {
+	JFrame frame = new JFrame();
+	JPanel panel = new JPanel();
+	JLabel imageLabel = new JLabel();
+	public void showMessageDialog(String message) {
 		// 1. Open example.png and make a GUI that looks like that
 		//    The message parameter is what we want to show on our pop-up
-		
-		
+		imageLabel.setIcon(loadImage("leagueDark.png"));
+
+		// setup the Frame (and panel)
+		make();
+
 		// 2. Uncomment the line of code below. It sets the location of our frame to the center of the screen
 		//frame.setLocationRelativeTo(null);
+
 	}
 	
 	// 3. Call this method in the Runner class
@@ -56,7 +59,13 @@ public class LeagueOptionPane {
 		//	5. Call this method in the Runner class
 		//
 		// WHY DID WE DO THIS? - because we were able to overload this method by calling one of the other methods inside of it
-	
+	public void make() {
+		frame.setVisible(true);
+		frame.add(panel);
+		frame.setSize(500,500);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 	
 	public static ImageIcon loadImage(String fileName) {
 		try {
