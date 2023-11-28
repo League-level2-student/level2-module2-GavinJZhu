@@ -1,10 +1,6 @@
 package _08_LeagueSnake;
 
-import processing.core.PApplet;
-
-public class LeagueSnake extends PApplet {
-    static final int WIDTH = 800;
-    static final int HEIGHT = 800;
+    
     
     /*
      * Game variables
@@ -14,7 +10,7 @@ public class LeagueSnake extends PApplet {
      Segment head;
      int foodX;
      int foodY;
-
+     
     /*
      * Setup methods
      * 
@@ -22,7 +18,7 @@ public class LeagueSnake extends PApplet {
      */
     @Override
     public void settings() {
-        setSize(500,500);
+        size(500,500);
     }
 
     @Override
@@ -54,11 +50,13 @@ public class LeagueSnake extends PApplet {
     void drawFood() {
         // Draw the food
         square(foodX, foodY, 10);
-        fill(30, 176, 126);
+        fill(255,0,0);
     }
 
     void drawSnake() {
         // Draw the head of the snake followed by its tail
+       rect(head.x,head.y,10,10);
+       fill(0,0,255);
     }
 
     void drawTail() {
@@ -124,8 +122,3 @@ public class LeagueSnake extends PApplet {
         // food appear
         
     }
-
-    static public void main(String[] passedArgs) {
-        PApplet.main(LeagueSnake.class.getName());
-    }
-}
