@@ -17,18 +17,16 @@ int foodX;
 int foodY;
 int direction = UP;
 int foodEaten = 0;
+ArrayList<Segment> tail = new ArrayList<Segment>();
 /*
      * Setup methods
  *
  * These methods are called at the start of the game.
  */
 
-void settings() {
-  size(500, 500);
-}
-
 
 void setup() {
+  size(500, 500);
   head = new Segment(250, 250);
   frameRate(20);
   dropFood();
@@ -52,6 +50,7 @@ void draw() {
   drawFood();
   move();
   drawSnake();
+  eat();
 }
 
 void drawFood() {
@@ -68,6 +67,9 @@ void drawSnake() {
 
 void drawTail() {
   // Draw each segment of the tail
+  for (Segment segment : tail) {
+      rect(segment.x, segment.y, 10, 10);
+  }
 }
 
 /*
@@ -95,16 +97,16 @@ void checkTailCollision() {
 
 void keyPressed() {
   // Set the direction of the snake according to the arrow keys pressed
-  if(keyCode == UP){
+  if (keyCode == UP) {
     direction = UP;
   }
-   if(keyCode == DOWN){
+  if (keyCode == DOWN) {
     direction = DOWN;
   }
-   if(keyCode == LEFT){
+  if (keyCode == LEFT) {
     direction = LEFT;
   }
-   if(keyCode == RIGHT){
+  if (keyCode == RIGHT) {
     direction = RIGHT;
   }
 }
@@ -125,21 +127,24 @@ void move() {
 
 void checkBoundaries() {
   // If the snake leaves the frame, make it reappear on the other side
-  if(head.x>500){
+  if (head.x>500) {
     head.x = 0;
-  }
-  else if(head.x<0){
+  } else if (head.x<0) {
     head.x = 500;
-  }
-  else if(head.y>500){
-  head.y = 0;
-  }
-  else if(head.y<0){
+  } else if (head.y>500) {
+    head.y = 0;
+  } else if (head.y<0) {
     head.y = 500;
   }
 }
 
 void eat() {
   // When the snake eats the food, its tail should grow and more
-  // food appear
+  // food appear'
+  if (head.x == foodX) {
+    if (head.y == foodY) {
+      foodEaten++;
+      dropFood();
+    }
+  }
 }
