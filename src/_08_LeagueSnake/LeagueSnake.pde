@@ -1,4 +1,3 @@
-
 class Segment {
   int x;
   int y;
@@ -63,6 +62,7 @@ void drawSnake() {
   // Draw the head of the snake followed by its tail
   rect(head.x, head.y, 10, 10);
   fill(0, 0, 255);
+  manageTail();
 }
 
 void drawTail() {
@@ -82,12 +82,20 @@ void manageTail() {
   // After drawing the tail, add a new segment at the "start" of the tail and
   // remove the one at the "end"
   // This produces the illusion of the snake tail moving.
+ Segment tailPart = new Segment(head.x, head.y);
+  checkTailCollision();
+  drawTail();
+  tail.add(tailPart);
+  tail.remove(0);
 }
 
 void checkTailCollision() {
   // If the snake crosses its own tail, shrink the tail back to one segment
+  for(int i = 0; i<tail.size; i++)
+  if (head.x && head.y)
+  
 }
-
+}
 /*
      * Control methods
  *
