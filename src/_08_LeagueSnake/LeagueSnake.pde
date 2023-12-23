@@ -17,6 +17,7 @@ int foodY;
 int direction = UP;
 int foodEaten = 0;
 ArrayList<Segment> tail = new ArrayList<Segment>();
+Segment tailPart;
 /*
      * Setup methods
  *
@@ -68,7 +69,7 @@ void drawSnake() {
 void drawTail() {
   // Draw each segment of the tail
   for (Segment segment : tail) {
-      rect(segment.x, segment.y, 10, 10);
+    rect(segment.x, segment.y, 10, 10);
   }
 }
 
@@ -82,7 +83,7 @@ void manageTail() {
   // After drawing the tail, add a new segment at the "start" of the tail and
   // remove the one at the "end"
   // This produces the illusion of the snake tail moving.
- Segment tailPart = new Segment(head.x, head.y);
+  Segment tailPart = new Segment(head.x, head.y);
   checkTailCollision();
   drawTail();
   tail.add(tailPart);
@@ -91,10 +92,15 @@ void manageTail() {
 
 void checkTailCollision() {
   // If the snake crosses its own tail, shrink the tail back to one segment
-  for(int i = 0; i<tail.size; i++)
-  if (head.x && head.y)
-  
-}
+  for (int i = 0; i<tail.size(); i++) {
+    //if (head.x == tailPart.x) {
+    //  if (head.y == tailPart.y) {
+    //    foodEaten = 0;
+    //    tail.clear();
+    //    tail.add(tailPart);
+    //  }
+    //}
+  }
 }
 /*
      * Control methods
@@ -105,19 +111,20 @@ void checkTailCollision() {
 
 void keyPressed() {
   // Set the direction of the snake according to the arrow keys pressed
-  if (keyCode == UP) {
+  if (keyCode == UP && direction != DOWN) {
     direction = UP;
   }
-  if (keyCode == DOWN) {
+  if (keyCode == DOWN && direction != UP) {
     direction = DOWN;
   }
-  if (keyCode == LEFT) {
+  if (keyCode == LEFT && direction != RIGHT) {
     direction = LEFT;
   }
-  if (keyCode == RIGHT) {
+  if (keyCode == RIGHT && direction != LEFT) {
     direction = RIGHT;
   }
 }
+
 
 void move() {
   // Change the location of the Snake head based on the direction it is moving.
@@ -133,15 +140,16 @@ void move() {
   checkBoundaries();
 }
 
+
 void checkBoundaries() {
   // If the snake leaves the frame, make it reappear on the other side
-  if (head.x>500) {
+  if (head.x>=500) {
     head.x = 0;
-  } else if (head.x<0) {
+  } else if (head.x<=0) {
     head.x = 500;
-  } else if (head.y>500) {
+  } else if (head.y>=500) {
     head.y = 0;
-  } else if (head.y<0) {
+  } else if (head.y<=0) {
     head.y = 500;
   }
 }
@@ -153,6 +161,7 @@ void eat() {
     if (head.y == foodY) {
       foodEaten++;
       dropFood();
+      tail.add(tailPart);
     }
   }
 }
