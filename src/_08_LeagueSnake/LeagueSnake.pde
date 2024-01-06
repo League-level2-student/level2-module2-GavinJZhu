@@ -56,19 +56,20 @@ void draw() {
 void drawFood() {
   // Draw the food
   square(foodX, foodY, 10);
-    fill(0, 0, 255);
+    fill(255, 0, 0);
 }
 
 void drawSnake() {
   // Draw the head of the snake followed by its tail
   rect(head.x, head.y, 10, 10);
-  fill(255, 0, 0);
+  fill(0, 0, 255);
   manageTail();
 }
 
 void drawTail() {
   // Draw each segment of the tail
   for (Segment segment : tail) {
+    fill(255,0,0);
     rect(segment.x, segment.y, 10, 10);
   }
 }
@@ -83,7 +84,7 @@ void manageTail() {
   // After drawing the tail, add a new segment at the "start" of the tail and
   // remove the one at the "end"
   // This produces the illusion of the snake tail moving.
-  tailPart = new Segment(head.x, head.y);
+  tailPart = new Segment(head.x-10, head.y);
   checkTailCollision();
   drawTail();
   tail.add(tailPart);
