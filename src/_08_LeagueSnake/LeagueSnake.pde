@@ -1,3 +1,6 @@
+//To do
+//fix tail not being with head after 
+
 class Segment {
   int x;
   int y;
@@ -26,16 +29,17 @@ Segment tailPart;
 
 
 void setup() {
-  size(500, 500);
-  head = new Segment(250, 250);
+  size(250, 250);
+  head = new Segment(125, 125);
+  tailPart = head;
   frameRate(20);
   dropFood();
 }
 
 void dropFood() {
   // Set the food in a new random location
-  foodX = ((int)random(50)*10);
-  foodY = ((int)random(50)*10);
+  foodX = ((int)random(25)*10);
+  foodY = ((int)random(25)*10);
 }
 
 /*
@@ -55,22 +59,22 @@ void draw() {
 
 void drawFood() {
   // Draw the food
+  fill(0, 0, 255);
   square(foodX, foodY, 10);
-    fill(255, 0, 0);
 }
 
 void drawSnake() {
   // Draw the head of the snake followed by its tail
+  fill(255, 0, 0);
   rect(head.x, head.y, 10, 10);
-  fill(0, 0, 255);
   manageTail();
 }
 
 void drawTail() {
   // Draw each segment of the tail
   for (Segment segment : tail) {
-    fill(255,0,0);
-    rect(segment.x, segment.y, 10, 10);
+    fill(255, 0, 0);
+    rect(head.x-10, head.y, 10, 10);
   }
 }
 
@@ -84,7 +88,17 @@ void manageTail() {
   // After drawing the tail, add a new segment at the "start" of the tail and
   // remove the one at the "end"
   // This produces the illusion of the snake tail moving.
-  tailPart = new Segment(head.x-10, head.y);
+  if (foodEaten == 1) {
+    tailPart = new Segment(head.x-10, head.y);
+  }
+  else {
+    if (head.x == foodX) {
+    if (head.y == foodY) {
+    tailPart = new Segment(tailPart.x-10, tailPart.y);
+    System.out.println("hi");
+    }
+     }
+  }
   checkTailCollision();
   drawTail();
   tail.add(tailPart);
@@ -96,7 +110,7 @@ void checkTailCollision() {
   for (int i = 0; i<tail.size(); i++) {
     if (head.x == tailPart.x) {
       if (head.y == tailPart.y) {
-          foodEaten = 0;
+        foodEaten = 0;
         tail.clear();
         tail.add(tailPart);
       }
@@ -144,14 +158,14 @@ void move() {
 
 void checkBoundaries() {
   // If the snake leaves the frame, make it reappear on the other side
-  if (head.x>=500) {
+  if (head.x>=250) {
     head.x = 0;
   } else if (head.x<=0) {
-    head.x = 500;
-  } else if (head.y>=500) {
+    head.x = 250;
+  } else if (head.y>=250) {
     head.y = 0;
   } else if (head.y<=0) {
-    head.y = 500;
+    head.y = 250;
   }
 }
 
