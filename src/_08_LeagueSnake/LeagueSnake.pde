@@ -1,5 +1,5 @@
 //To do
-//fix tail not being with head after 
+//fix tail not being with head after
 
 class Segment {
   int x;
@@ -90,19 +90,19 @@ void manageTail() {
   // This produces the illusion of the snake tail moving.
   if (foodEaten == 1) {
     tailPart = new Segment(head.x-10, head.y);
-  }
-  else {
+     System.out.println(foodEaten);
+  } else {
     if (head.x == foodX) {
-    if (head.y == foodY) {
-    tailPart = new Segment(tailPart.x-10, tailPart.y);
-    System.out.println("hi");
+      if (head.y == foodY) {
+        tailPart = new Segment(tailPart.x-10, tailPart.y);
+        System.out.println(foodEaten);
+      }
     }
-     }
   }
   checkTailCollision();
   drawTail();
-  tail.add(tailPart);
-  tail.remove(0);
+ // tail.add(tailPart);
+  //tail.remove(0);
 }
 
 void checkTailCollision() {
@@ -177,6 +177,7 @@ void eat() {
       foodEaten++;
       dropFood();
       tail.add(tailPart);
+      System.out.println(foodEaten);
     }
   }
 }
