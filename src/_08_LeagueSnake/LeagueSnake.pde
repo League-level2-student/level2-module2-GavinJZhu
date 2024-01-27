@@ -74,7 +74,7 @@ void drawTail() {
   // Draw each segment of the tail
   for (Segment segment : tail) {
     fill(255, 0, 0);
-    rect(head.x-10, head.y, 10, 10);
+    rect(segment.x, segment.y, 10, 10);
   }
 }
 
@@ -85,24 +85,26 @@ void drawTail() {
  */
 
 void manageTail() {
-  // After drawing the tail, add a new segment at the "start" of the tail and
-  // remove the one at the "end"
-  // This produces the illusion of the snake tail moving.
-  if (foodEaten == 1) {
-    tailPart = new Segment(head.x-10, head.y);
-     System.out.println(foodEaten);
-  } else {
-    if (head.x == foodX) {
-      if (head.y == foodY) {
-        tailPart = new Segment(tailPart.x-10, tailPart.y);
-        System.out.println(foodEaten);
-      }
-    }
-  }
+  //After drawing the tail, add a new segment at the "start" of the tail and
+  //remove the one at the "end"
+  //This produces the illusion of the snake tail moving.
+  //if (foodEaten == 1 && head.x == foodX && head.y == foodY) {
+  //  tailPart = new Segment(head.x-10, head.y);
+  //   System.out.println(foodEaten);
+  //} else {
+  //  if (head.x == foodX) {
+  //    if (head.y == foodY) {
+  //      tailPart = new Segment(tailPart.x-10, tailPart.y);
+  //      System.out.println(foodEaten);
+  //    }
+  //  }
+  //}
   checkTailCollision();
+  tailPart = new Segment(head.x, head.y);
+  tail.add(tailPart);
+  tail.remove(0);
   drawTail();
- // tail.add(tailPart);
-  //tail.remove(0);
+  System.out.println("tail size = " + tail.size());
 }
 
 void checkTailCollision() {
@@ -172,12 +174,12 @@ void checkBoundaries() {
 void eat() {
   // When the snake eats the food, its tail should grow and more
   // food appear'
-  if (head.x == foodX) {
-    if (head.y == foodY) {
-      foodEaten++;
-      dropFood();
-      tail.add(tailPart);
-      System.out.println(foodEaten);
-    }
+  if (head.x >= foodX-5 && head.x <= foodX+5 && head.y >= foodY-5 && head.y <= foodY+5) {
+    
+    foodEaten++;
+    dropFood();
+    tailPart = new Segment(head.x-10, head.y);
+    tail.add(tailPart);
+    System.out.println("Eaten " + foodEaten);
   }
 }
