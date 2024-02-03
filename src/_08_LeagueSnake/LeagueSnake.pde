@@ -27,9 +27,12 @@ Segment tailPart;
  * These methods are called at the start of the game.
  */
 
+void settings(){
+  size(250, 250);
+  
+}
 
 void setup() {
-  size(250, 250);
   head = new Segment(125, 125);
   tailPart = head;
   frameRate(20);
@@ -99,11 +102,11 @@ void manageTail() {
   //    }
   //  }
   //}
-  checkTailCollision();
-  tailPart = new Segment(head.x, head.y);
-  tail.add(tailPart);
-  tail.remove(0);
+  //checkTailCollision();
   drawTail();
+  Segment newTail = new Segment(head.x, head.y);
+  tail.add(newTail);
+  tail.remove(0);
   System.out.println("tail size = " + tail.size());
 }
 
@@ -174,12 +177,11 @@ void checkBoundaries() {
 void eat() {
   // When the snake eats the food, its tail should grow and more
   // food appear'
-  if (head.x >= foodX-5 && head.x <= foodX+5 && head.y >= foodY-5 && head.y <= foodY+5) {
-    
+  if (head.x >= foodX && head.x <= foodX && head.y >= foodY && head.y <= foodY) {
     foodEaten++;
     dropFood();
-    tailPart = new Segment(head.x-10, head.y);
-    tail.add(tailPart);
+    Segment newTail = new Segment(head.x, head.y);
+    tail.add(newTail);
     System.out.println("Eaten " + foodEaten);
   }
 }
