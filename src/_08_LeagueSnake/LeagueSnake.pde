@@ -1,5 +1,6 @@
 //To do
-//fix tail not being with head after
+//make the snake grow
+
 
 class Segment {
   int x;
@@ -20,21 +21,18 @@ int foodY;
 int direction = UP;
 int foodEaten = 0;
 ArrayList<Segment> tail = new ArrayList<Segment>();
-Segment tailPart;
 /*
      * Setup methods
  *
  * These methods are called at the start of the game.
  */
 
-void settings(){
+void settings() {
   size(250, 250);
-  
 }
 
 void setup() {
   head = new Segment(125, 125);
-  tailPart = head;
   frameRate(20);
   dropFood();
 }
@@ -91,34 +89,19 @@ void manageTail() {
   //After drawing the tail, add a new segment at the "start" of the tail and
   //remove the one at the "end"
   //This produces the illusion of the snake tail moving.
-  //if (foodEaten == 1 && head.x == foodX && head.y == foodY) {
-  //  tailPart = new Segment(head.x-10, head.y);
-  //   System.out.println(foodEaten);
-  //} else {
-  //  if (head.x == foodX) {
-  //    if (head.y == foodY) {
-  //      tailPart = new Segment(tailPart.x-10, tailPart.y);
-  //      System.out.println(foodEaten);
-  //    }
-  //  }
-  //}
-  //checkTailCollision();
+  checkTailCollision();
   drawTail();
-  Segment newTail = new Segment(head.x, head.y);
-  tail.add(newTail);
+  tail.add(new Segment(head.x, head.y));
   tail.remove(0);
-  System.out.println("tail size = " + tail.size());
 }
 
 void checkTailCollision() {
   // If the snake crosses its own tail, shrink the tail back to one segment
-  for (int i = 0; i<tail.size(); i++) {
-    if (head.x == tailPart.x) {
-      if (head.y == tailPart.y) {
-        foodEaten = 0;
-        tail.clear();
-        tail.add(tailPart);
-      }
+  for (Segment tailPart : tail) {
+    if (tailPart.x == head.x && tailPart.y == head.y) {
+      foodEaten = 1;
+      tail.clear();
+      tail.add(new Segment(head.x, head.y));
     }
   }
 }
@@ -177,7 +160,7 @@ void checkBoundaries() {
 void eat() {
   // When the snake eats the food, its tail should grow and more
   // food appear'
-  if (head.x >= foodX && head.x <= foodX && head.y >= foodY && head.y <= foodY) {
+  if (head.x >= foodX+5 && head.x <= foodX && head.y >= foodY && head.y <= foodY) {
     foodEaten++;
     dropFood();
     Segment newTail = new Segment(head.x, head.y);
