@@ -28,7 +28,7 @@ ArrayList<Segment> tail = new ArrayList<Segment>();
  */
 
 void settings() {
-  size(250, 250);
+  size(500,500);
 }
 
 void setup() {
@@ -39,8 +39,8 @@ void setup() {
 
 void dropFood() {
   // Set the food in a new random location
-  foodX = ((int)random(25)*10);
-  foodY = ((int)random(25)*10);
+  foodX = ((int)random(50)*10);
+  foodY = ((int)random(50)*10);
 }
 
 /*
@@ -52,30 +52,33 @@ void dropFood() {
 
 void draw() {
   background(0, 0, 0);
-  drawFood();
   move();
+  drawFood();
   drawSnake();
-  eat();
 }
 
 void drawFood() {
   // Draw the food
   fill(0, 0, 255);
-  square(foodX, foodY, 10);
+  square(foodX, foodY, 26);
 }
 
 void drawSnake() {
   // Draw the head of the snake followed by its tail
   fill(255, 0, 0);
-  rect(head.x, head.y, 10, 10);
+  rect(head.x, head.y, 26, 26);
   manageTail();
+  eat();
 }
 
 void drawTail() {
   // Draw each segment of the tail
-  for (Segment segment : tail) {
+  //for (Segment segment : tail) {
+  for (int i = 0; i<tail.size(); i++) {
+    Segment segment = tail.get(i);
     fill(255, 0, 0);
-    rect(segment.x, segment.y, 10, 10);
+    rect(segment.x, segment.y, 26, 26);
+    System.out.println("drawing segment #" + i + " with x= " + segment.x + " and y =" + segment.y);
   }
 }
 
@@ -99,9 +102,9 @@ void checkTailCollision() {
   // If the snake crosses its own tail, shrink the tail back to one segment
   for (Segment tailPart : tail) {
     if (tailPart.x == head.x && tailPart.y == head.y) {
-      foodEaten = 1;
+      foodEaten = 0;
       tail.clear();
-      tail.add(new Segment(head.x, head.y));
+      return;
     }
   }
 }
@@ -132,13 +135,13 @@ void keyPressed() {
 void move() {
   // Change the location of the Snake head based on the direction it is moving.
   if (direction == UP) {
-    head.y--;
+    head.y-=10;
   } else if (direction == DOWN) {
-    head.y++;
+    head.y+=10;
   } else if (direction == LEFT) {
-    head.x--;
+    head.x-=10;
   } else if (direction == RIGHT) {
-    head.x++;
+    head.x+=10;
   }
   checkBoundaries();
 }
@@ -146,25 +149,25 @@ void move() {
 
 void checkBoundaries() {
   // If the snake leaves the frame, make it reappear on the other side
-  if (head.x>=250) {
+  if (head.x>=500) {
     head.x = 0;
   } else if (head.x<=0) {
-    head.x = 250;
-  } else if (head.y>=250) {
+    head.x = 500;
+  } else if (head.y>=500) {
     head.y = 0;
   } else if (head.y<=0) {
-    head.y = 250;
+    head.y = 500;
   }
 }
 
 void eat() {
   // When the snake eats the food, its tail should grow and more
   // food appear'
-  if (head.x >= foodX+5 && head.x <= foodX && head.y >= foodY && head.y <= foodY) {
+  if (head.x <= foodX+13 && head.x >= foodX-13 && head.y <= foodY+13 && head.y >= foodY-13) {
     foodEaten++;
     dropFood();
     Segment newTail = new Segment(head.x, head.y);
     tail.add(newTail);
-    System.out.println("Eaten " + foodEaten);
+    System.out.println("tailsize = " + tail.size());
   }
 }
