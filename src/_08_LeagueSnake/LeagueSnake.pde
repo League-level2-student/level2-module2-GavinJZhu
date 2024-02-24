@@ -1,5 +1,6 @@
-//To do
-//make the snake grow
+//Error
+//If snake is on top row, or right row, weird behavior
+//To do, analyze by moving snake very slow at the rows
 
 
 class Segment {
@@ -28,7 +29,7 @@ ArrayList<Segment> tail = new ArrayList<Segment>();
  */
 
 void settings() {
-  size(500,500);
+  size(500, 500);
 }
 
 void setup() {
@@ -41,6 +42,18 @@ void dropFood() {
   // Set the food in a new random location
   foodX = ((int)random(50)*10);
   foodY = ((int)random(50)*10);
+  if (foodX>=475){
+  foodX=foodX-25;
+  }
+  else if (foodX<=25){
+  foodX=foodX+25;
+  }
+  if (foodY>=475){
+   foodY=foodY-25; 
+  }
+  else if (foodY<=25){
+   foodY=foodY+25; 
+  }
 }
 
 /*
@@ -78,7 +91,6 @@ void drawTail() {
     Segment segment = tail.get(i);
     fill(255, 0, 0);
     rect(segment.x, segment.y, 26, 26);
-    System.out.println("drawing segment #" + i + " with x= " + segment.x + " and y =" + segment.y);
   }
 }
 
@@ -153,7 +165,8 @@ void checkBoundaries() {
     head.x = 0;
   } else if (head.x<=0) {
     head.x = 500;
-  } else if (head.y>=500) {
+  }
+  if (head.y>=500) {
     head.y = 0;
   } else if (head.y<=0) {
     head.y = 500;
