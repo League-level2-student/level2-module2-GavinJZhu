@@ -181,6 +181,6 @@ void eat() {
     dropFood();
     Segment newTail = new Segment(head.x, head.y);
     tail.add(newTail);
-    System.out.println("tailsize = " + tail.size());
+    System.out.println("tailsie = " + tail.size());
   }
 }
