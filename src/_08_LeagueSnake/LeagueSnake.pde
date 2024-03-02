@@ -156,6 +156,7 @@ void move() {
     head.x+=10;
   }
   checkBoundaries();
+  
 }
 
 
