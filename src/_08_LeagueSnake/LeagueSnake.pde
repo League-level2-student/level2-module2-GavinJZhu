@@ -42,17 +42,15 @@ void dropFood() {
   // Set the food in a new random location
   foodX = ((int)random(50)*10);
   foodY = ((int)random(50)*10);
-  if (foodX>=475){
-  foodX=foodX-25;
+  if (foodX>=475) {
+    foodX=foodX-25;
+  } else if (foodX<=25) {
+    foodX=foodX+25;
   }
-  else if (foodX<=25){
-  foodX=foodX+25;
-  }
-  if (foodY>=475){
-   foodY=foodY-25; 
-  }
-  else if (foodY<=25){
-   foodY=foodY+25; 
+  if (foodY>=475) {
+    foodY=foodY-25;
+  } else if (foodY<=25) {
+    foodY=foodY+25;
   }
 }
 
@@ -155,8 +153,26 @@ void move() {
   } else if (direction == RIGHT) {
     head.x+=10;
   }
+  //if (head.y == 0){
+  // System.out.println(head.x + ", " + head.y);
+  //}
+  //else if (head.x == 0){
+  // System.out.println(head.x + ", " + head.y);
+  //}
+  if (head.x <= 5) {
+    if (direction == LEFT) {
+      head.x-=1;
+    } else if (direction == RIGHT) {
+      head.x+=1;
+    }
+  } else if (head.y <= 5) {
+    if (direction == UP) {
+      head.y-=1;
+    } else if (direction == DOWN) {
+      head.y+=1;
+    }
+  }
   checkBoundaries();
-  
 }
 
 
