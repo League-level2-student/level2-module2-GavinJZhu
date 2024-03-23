@@ -21,6 +21,10 @@ int foodX;
 int foodY;
 int direction = UP;
 int foodEaten = 0;
+int pixelsMoved = 26;
+int pixelsTail = 26;
+int pixelsHead = 26;
+int speedValue = 1;
 ArrayList<Segment> tail = new ArrayList<Segment>();
 /*
      * Setup methods
@@ -34,7 +38,7 @@ void settings() {
 
 void setup() {
   head = new Segment(125, 125);
-  frameRate(20);
+  frameRate(speedValue);
   dropFood();
 }
 
@@ -76,9 +80,12 @@ void drawFood() {
 
 void drawSnake() {
   // Draw the head of the snake followed by its tail
-  fill(255, 0, 0);
+  fill(0, 255, 0);
   rect(head.x, head.y, 26, 26);
-  manageTail();
+  if (tail.size() > 0 )
+  {
+       manageTail();
+  }
   eat();
 }
 
@@ -145,13 +152,13 @@ void keyPressed() {
 void move() {
   // Change the location of the Snake head based on the direction it is moving.
   if (direction == UP) {
-    head.y-=10;
+    head.y-=pixelsMoved;
   } else if (direction == DOWN) {
-    head.y+=10;
+    head.y+=pixelsMoved;
   } else if (direction == LEFT) {
-    head.x-=10;
+    head.x-=pixelsMoved;
   } else if (direction == RIGHT) {
-    head.x+=10;
+    head.x+=pixelsMoved;
   }
   //if (head.y == 0){
   // System.out.println(head.x + ", " + head.y);
@@ -159,19 +166,21 @@ void move() {
   //else if (head.x == 0){
   // System.out.println(head.x + ", " + head.y);
   //}
-  if (head.x <= 5) {
+  /*
+  if (head.x <= pixelsMoved/2) {
     if (direction == LEFT) {
       head.x-=1;
     } else if (direction == RIGHT) {
       head.x+=1;
     }
-  } else if (head.y <= 5) {
+  } else if (head.y <= pixelsMoved/2) {
     if (direction == UP) {
       head.y-=1;
     } else if (direction == DOWN) {
       head.y+=1;
     }
   }
+  */
   checkBoundaries();
 }
 
@@ -180,12 +189,12 @@ void checkBoundaries() {
   // If the snake leaves the frame, make it reappear on the other side
   if (head.x>=500) {
     head.x = 0;
-  } else if (head.x<=0) {
+  } else if (head.x<=1) {
     head.x = 500;
   }
   if (head.y>=500) {
     head.y = 0;
-  } else if (head.y<=0) {
+  } else if (head.y<=1) {
     head.y = 500;
   }
 }
