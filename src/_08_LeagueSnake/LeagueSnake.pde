@@ -38,7 +38,7 @@ void settings() {
 
 void setup() {
   head = new Segment(125, 125);
-  frameRate(speedValue);
+  frameRate(10);
   dropFood();
 }
 
@@ -160,13 +160,13 @@ void move() {
   } else if (direction == RIGHT) {
     head.x+=pixelsMoved;
   }
-  //if (head.y == 0){
-  // System.out.println(head.x + ", " + head.y);
-  //}
-  //else if (head.x == 0){
-  // System.out.println(head.x + ", " + head.y);
-  //}
-  /*
+  ////if (head.y == 0){
+  //// System.out.println(head.x + ", " + head.y);
+  ////}
+  ////else if (head.x == 0){
+  //// System.out.println(head.x + ", " + head.y);
+  ////}
+  ///*
   if (head.x <= pixelsMoved/2) {
     if (direction == LEFT) {
       head.x-=1;
@@ -180,7 +180,7 @@ void move() {
       head.y+=1;
     }
   }
-  */
+
   checkBoundaries();
 }
 
@@ -189,12 +189,12 @@ void checkBoundaries() {
   // If the snake leaves the frame, make it reappear on the other side
   if (head.x>=500) {
     head.x = 0;
-  } else if (head.x<=1) {
+  } else if (head.x<=0) {
     head.x = 500;
   }
   if (head.y>=500) {
     head.y = 0;
-  } else if (head.y<=1) {
+  } else if (head.y<=0) {
     head.y = 500;
   }
 }
